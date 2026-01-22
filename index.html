@@ -1,0 +1,1110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
+    <meta
+      id="metaDescription"
+      name="description"
+      content="Place here a brief and attractive description of your service."
+    />
+    <meta
+      id="metaKeywords"
+      name="keywords"
+      content="Place relevant keywords separated by commas. example: (Cafe, shipments, dentist, USA)"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./assets/Logo.ico" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>El Tazón de Oro · QR Menu</title>
+
+    <style>
+      /* =========================
+   THEME + SHADOWS (single source of truth)
+   ========================= */
+      :root {
+        /* Base palette (DARK) */
+        --ash: #bcabae;
+        --onyx: #0f0f0f;
+        --graphite: #2d2e2e;
+        --dim: #716969;
+        --white: #fbfbfb;
+
+        --filterBlue: #38bdf8;
+
+        /* Surfaces (DARK) */
+        --pageBg: var(--onyx);
+        --pageText: var(--white);
+        --headerBg: rgba(15, 15, 15, 0.9);
+
+        --border: rgba(255, 255, 255, 0.1);
+        --chipBg: rgba(255, 255, 255, 0.05);
+        --chipBorder: rgba(255, 255, 255, 0.1);
+        --mutedText: rgba(255, 255, 255, 0.7);
+
+        /* Scrollbar (dark) */
+        --scrollTrack: rgba(255, 255, 255, 0.06);
+        --scrollThumb: rgba(255, 255, 255, 0.18);
+        --scrollThumbHover: rgba(255, 255, 255, 0.26);
+
+        /* Shadows (DARK) */
+        --shadow-press: 0 14px 40px rgba(0, 0, 0, 0.45);
+        --shadow-inset: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+
+        --glow-outline: 0 0 0 1px rgba(188, 171, 174, 0.18);
+        --glow-soft: 0 0 26px rgba(188, 171, 174, 0.1);
+
+        --chip-shadow: none;
+      }
+
+      html[data-theme="light"] {
+        /* Base palette (LIGHT) */
+        --ash: #2d2e2e;
+        --onyx: #fbfbfb;
+        --graphite: #ffffff;
+        --dim: #64748b;
+        --white: #0f172a;
+
+        /* Surfaces (LIGHT) */
+        --pageBg: #f6f7fb;
+        --pageText: #0f172a;
+        --headerBg: rgba(246, 247, 251, 0.92);
+
+        --border: rgba(15, 23, 42, 0.12);
+        --chipBg: rgba(15, 23, 42, 0.04);
+        --chipBorder: rgba(15, 23, 42, 0.1);
+        --mutedText: rgba(15, 23, 42, 0.7);
+
+        /* Scrollbar (light) */
+        --scrollTrack: rgba(15, 23, 42, 0.06);
+        --scrollThumb: rgba(15, 23, 42, 0.18);
+        --scrollThumbHover: rgba(15, 23, 42, 0.26);
+
+        /* Shadows (LIGHT) */
+        --shadow-press: 0 14px 40px rgba(15, 23, 42, 0.12);
+        --shadow-inset: 0 1px 0 rgba(255, 255, 255, 0.75) inset;
+
+        --glow-outline: 0 0 0 1px rgba(15, 23, 42, 0.1);
+        --glow-soft: 0 0 18px rgba(15, 23, 42, 0.06);
+
+        --chip-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+      }
+
+      /* =========================
+   Global base
+   ========================= */
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--pageBg);
+        color: var(--pageText);
+      }
+      header {
+        background: var(--headerBg) !important;
+      }
+      body.sheet-open {
+        overflow: hidden;
+      }
+
+      /* Tailwind utility overrides you already use */
+      .border-white\/10 {
+        border-color: var(--border) !important;
+      }
+
+      /* FIX: faltaban /60 y /90 (por eso el clock desaparecía en light) */
+      .text-white\/60,
+      .text-white\/70,
+      .text-white\/80,
+      .text-white\/90 {
+        color: var(--mutedText) !important;
+      }
+
+      /* =========================
+   Shadows (used by buttons/cards)
+   ========================= */
+      .soft-shadow {
+        box-shadow: var(--shadow-press), var(--shadow-inset);
+      }
+      .ash-glow {
+        box-shadow: var(--shadow-press), var(--glow-outline), var(--glow-soft);
+      }
+
+      /* =========================
+   Chips
+   ========================= */
+      .chip {
+        border-color: var(--chipBorder) !important;
+        background: var(--chipBg) !important;
+        transform: translateZ(0);
+      }
+      .chip:active {
+        transform: scale(0.98);
+      }
+
+      /* =========================
+   Active tabs
+   ========================= */
+      .tab-btn.is-active {
+        border-color: rgba(56, 189, 248, 0.55) !important;
+        box-shadow: inset 0 0 0 1.5px rgba(56, 189, 248, 0.55);
+        background: rgba(56, 189, 248, 0.14) !important;
+        color: rgba(56, 189, 248, 1) !important;
+      }
+      html[data-theme="light"] .tab-btn.is-active {
+        background: rgba(56, 189, 248, 0.18) !important;
+        color: rgba(15, 23, 42, 0.95) !important;
+        box-shadow:
+          inset 0 0 0 1.5px rgba(56, 189, 248, 0.55),
+          var(--chip-shadow);
+      }
+
+      /* =========================
+   Horizontal scrollbars
+   ========================= */
+      .h-scroll {
+        scrollbar-width: thin;
+      }
+      .h-scroll::-webkit-scrollbar {
+        height: 7px;
+      }
+      .h-scroll::-webkit-scrollbar-track {
+        background: var(--scrollTrack);
+        border-radius: 999px;
+      }
+      .h-scroll::-webkit-scrollbar-thumb {
+        background: var(--scrollThumb);
+        border-radius: 999px;
+      }
+      .h-scroll::-webkit-scrollbar-thumb:hover {
+        background: var(--scrollThumbHover);
+      }
+
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      /* =========================
+   Reduced motion
+   ========================= */
+      @media (prefers-reduced-motion: reduce) {
+        .enter,
+        .enter-card {
+          animation: none !important;
+          transform: none !important;
+          opacity: 1 !important;
+        }
+        #dishOverlay,
+        #dishSheet {
+          transition: none !important;
+        }
+      }
+
+      /* =========================
+   Entrance animations
+   ========================= */
+      @keyframes enterUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes enterCard {
+        from {
+          opacity: 0;
+          transform: translateY(16px) scale(0.985);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .enter {
+        opacity: 0;
+        animation: enterUp 0.6s ease forwards;
+      }
+      .enter-card {
+        opacity: 0;
+        animation: enterCard 0.65s ease forwards;
+      }
+
+      .d1 {
+        animation-delay: 0.05s;
+      }
+      .d2 {
+        animation-delay: 0.12s;
+      }
+      .d3 {
+        animation-delay: 0.18s;
+      }
+      .d4 {
+        animation-delay: 0.24s;
+      }
+      .d5 {
+        animation-delay: 0.3s;
+      }
+      .c1 {
+        animation-delay: 0.05s;
+      }
+      .c2 {
+        animation-delay: 0.1s;
+      }
+      .c3 {
+        animation-delay: 0.15s;
+      }
+      .c4 {
+        animation-delay: 0.2s;
+      }
+      .c5 {
+        animation-delay: 0.25s;
+      }
+      .c6 {
+        animation-delay: 0.3s;
+      }
+      .c7 {
+        animation-delay: 0.35s;
+      }
+      .c8 {
+        animation-delay: 0.4s;
+      }
+      .c9 {
+        animation-delay: 0.45s;
+      }
+      .c10 {
+        animation-delay: 0.5s;
+      }
+
+      /* =========================
+   Bottom sheet + overlay
+   ========================= */
+      #dishOverlay {
+        opacity: 0;
+        transition: opacity 0.22s ease;
+      }
+      #dishOverlay.is-open {
+        opacity: 1;
+      }
+
+      #dishSheet {
+        transform: translateY(105%);
+        transition: transform 0.28s ease;
+        will-change: transform;
+        touch-action: none;
+      }
+      #dishSheet.is-open {
+        transform: translateY(0);
+      }
+      #dishSheet.is-dragging {
+        transition: none !important;
+      }
+
+      /* ===== Sheet tags ===== */
+      .sheet-chip,
+      .sheet-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.4rem 0.65rem;
+        font-size: 0.75rem;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--chipBg);
+        color: var(--pageText);
+        backdrop-filter: blur(6px);
+      }
+
+      /* ===== FIX: texto/íconos sobre la foto del sheet siempre en blanco ===== */
+      #dishSheet #dishName,
+      #dishSheet #dishTime,
+      #dishSheet #dishTime *,
+      #dishSheet #dishPrice {
+        color: rgba(255, 255, 255, 0.95) !important;
+      }
+      #dishSheet #dishTime svg,
+      #dishSheet #dishCloseBtn svg {
+        color: rgba(255, 255, 255, 0.92) !important;
+      }
+
+      /* ===========================
+   Compact chips for Recommended
+   =========================== */
+
+      .recommended-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+
+        padding: 0.2rem 0.44rem;
+        font-size: 0.7rem;
+        line-height: 1;
+
+        border-radius: 999px;
+        border: 1px solid var(--chipBorder);
+        background: var(--chipBg);
+
+        color: var(--pageText);
+      }
+
+      .recommended-chip i {
+        width: 0.3rem;
+        height: 0.5rem;
+      }
+
+      /* Bottom sheet: nunca más alto que la pantalla */
+      #dishSheet {
+        max-height: min(92vh, 860px);
+      }
+
+      /* Card del sheet: estructura fija (header arriba, contenido scrolleable) */
+      #dishSheet > div {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Imagen: altura fija para que el botón siempre exista */
+      #dishSheet .sheet-hero {
+        flex: 0 0 auto;
+        height: 18rem; /* 288px */
+      }
+
+      @media (max-height: 700px) {
+        #dishSheet .sheet-hero {
+          height: 14rem; /* 224px */
+        }
+      }
+
+      /* Contenido: ocupa el resto y scrollea */
+      #dishSheet .sheet-body {
+        flex: 1 1 auto;
+        min-height: 0; /* CRÍTICO para que overflow funcione en flex */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <script src="./config.js" defer></script>
+    <script src="./js/apply-config.js" defer></script>
+    <script src="./js/render-menu.js" defer></script>
+    <script src="./js/app.js" defer></script>
+    <script src="./js/theme.js" defer></script>
+  </head>
+
+  <body class="min-h-screen">
+    <div class="mx-auto w-full max-w-[520px]">
+      <header
+        class="enter d1 z-40 bg-[var(--onyx)]/90 backdrop-blur border-b border-white/10"
+      >
+        <!-- Top bar -->
+        <div class="px-4 pt-5 pb-4 flex items-center justify-between gap-3">
+          <div class="min-w-0">
+            <p
+              class="text-[12px] uppercase tracking-[0.18em] text-[var(--dim)]"
+            >
+              QR MENU
+            </p>
+            <h1 class="mt-1 truncate text-xl font-semibold tracking-tight">
+              El Tazón de Oro
+            </h1>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button
+              id="themeToggle"
+              class="h-10 w-10 rounded-xl border border-white/10 bg-white/5 grid place-items-center active:scale-[0.98] soft-shadow"
+              type="button"
+              title="Theme"
+              aria-label="Toggle theme"
+            >
+              <i id="themeIcon" class="h-5 w-5" data-lucide="moon"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Recommended -->
+        <div class="px-4 pb-3 flex items-center justify-between">
+          <h2 class="text-base font-semibold">Recommended</h2>
+        </div>
+
+        <div class="pb-5 enter d2">
+          <div
+            id="recommendedTrack"
+            class="no-scrollbar flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth px-4 scroll-px-4"
+          ></div>
+        </div>
+
+        <!-- Tabs (TYPE FILTER) -->
+        <div class="px-4 pb-5 enter d3">
+          <div class="no-scrollbar flex gap-2 overflow-x-auto">
+            <button
+              class="chip tab-btn shrink-0 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-sm ash-glow"
+              data-type="all"
+              aria-pressed="true"
+              type="button"
+            >
+              All
+            </button>
+            <button
+              class="chip tab-btn shrink-0 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-sm"
+              data-type="bowls"
+              aria-pressed="false"
+              type="button"
+            >
+              Bowls
+            </button>
+            <button
+              class="chip tab-btn shrink-0 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-sm"
+              data-type="soups"
+              aria-pressed="false"
+              type="button"
+            >
+              Soups
+            </button>
+            <button
+              class="chip tab-btn shrink-0 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-sm"
+              data-type="drinks"
+              aria-pressed="false"
+              type="button"
+            >
+              Drinks
+            </button>
+            <button
+              class="chip tab-btn shrink-0 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-sm"
+              data-type="desserts"
+              aria-pressed="false"
+              type="button"
+            >
+              Desserts
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="px-4 pt-5 pb-10">
+        <div class="flex items-end justify-between enter d4">
+          <h3 class="text-base font-semibold">Menu</h3>
+        </div>
+
+        <div
+          id="emptyState"
+          class="hidden mt-4 rounded-3xl border border-white/10 bg-white/5 p-4 text-base text-white/80"
+        >
+          No items match your filters. Try another category.
+        </div>
+
+        <div id="menuGrid" class="mt-4 grid gap-3 enter d5">
+          <!-- BOWLS -->
+          <article
+            data-item
+            data-type="bowls"
+            data-name="Beef Bowl"
+            data-desc="Tender beef with rice, veggies and house sauce."
+            data-ingredients="Beef, rice, avocado, cucumber, sesame"
+            data-allergens="Sesame, Soy"
+            data-time="12–18 min"
+            data-price="$145"
+            data-img="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=70"
+            data-tags="popular spicy signature"
+            class="enter-card c1 overflow-hidden rounded-3xl border border-white/10 bg-[var(--graphite)] ash-glow min-h-[248px]"
+          >
+            <div
+              class="grid grid-cols-1 min-h-[248px] [@media(min-width:361px)]:grid-cols-[60%_40%]"
+            >
+              <div
+                class="p-4 flex flex-col order-2 [@media(min-width:361px)]:order-1"
+              >
+                <div class="flex items-baseline justify-between gap-3">
+                  <h4
+                    class="min-w-0 truncate text-lg font-semibold leading-tight"
+                  >
+                    Beef Bowl
+                  </h4>
+                  <p
+                    class="shrink-0 text-xl font-semibold tracking-tight text-[var(--ash)]"
+                  >
+                    $145
+                  </p>
+                </div>
+                <p
+                  class="mt-1 inline-flex items-center gap-2 text-sm text-white/70"
+                >
+                  <i data-lucide="clock-3" class="h-4 w-4 text-white/60"></i
+                  >12–18 min
+                </p>
+                <div class="flex-1"></div>
+
+                <!-- Tags visible, no filtering -->
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i data-lucide="star" class="h-4 w-4 text-amber-300"></i
+                    >Popular
+                  </span>
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i data-lucide="flame" class="h-4 w-4 text-rose-300"></i
+                    >Spicy
+                  </span>
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i
+                      data-lucide="badge-check"
+                      class="h-4 w-4 text-emerald-300"
+                    ></i
+                    >Signature
+                  </span>
+                </div>
+              </div>
+
+              <div
+                class="relative w-full order-1 h-48 [@media(min-width:361px)]:order-2 [@media(min-width:361px)]:h-full"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=70"
+                  alt="Beef Bowl"
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-l from-black/0 via-black/0 to-black/30"
+                ></div>
+              </div>
+            </div>
+          </article>
+
+          <article
+            data-item
+            data-type="bowls"
+            data-tags="healthy chef highprotein"
+            data-name="Chicken Teriyaki Bowl"
+            data-desc="Grilled chicken glazed with teriyaki sauce, served over rice with crunchy veggies and a light sesame finish."
+            data-ingredients="Chicken, rice, teriyaki sauce (soy), cucumber, carrot, scallions, sesame"
+            data-allergens="Soy, Sesame"
+            data-time="10–16 min"
+            data-price="$139"
+            data-img="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=1200&q=70"
+            class="enter-card c2 overflow-hidden rounded-3xl border border-white/10 bg-[var(--graphite)] ash-glow min-h-[248px]"
+          >
+            <div
+              class="grid grid-cols-1 min-h-[248px] [@media(min-width:361px)]:grid-cols-[60%_40%]"
+            >
+              <div
+                class="p-4 flex flex-col order-2 [@media(min-width:361px)]:order-1"
+              >
+                <div class="flex items-baseline justify-between gap-3">
+                  <h4
+                    class="min-w-0 truncate text-lg font-semibold leading-tight"
+                  >
+                    Chicken Teriyaki Bowl
+                  </h4>
+                  <p
+                    class="shrink-0 text-xl font-semibold tracking-tight text-[var(--ash)]"
+                  >
+                    $139
+                  </p>
+                </div>
+
+                <p
+                  class="mt-1 inline-flex items-center gap-2 text-sm text-white/70"
+                >
+                  <i data-lucide="clock-3" class="h-4 w-4 text-white/60"></i
+                  >10–16 min
+                </p>
+
+                <div class="flex-1"></div>
+
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i data-lucide="leaf" class="h-4 w-4 text-emerald-300"></i
+                    >Healthy
+                  </span>
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i data-lucide="star" class="h-4 w-4 text-amber-300"></i
+                    >Chef
+                  </span>
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i
+                      data-lucide="dumbbell"
+                      class="h-4 w-4 text-emerald-300"
+                    ></i
+                    >High-protein
+                  </span>
+                </div>
+              </div>
+
+              <div
+                class="relative w-full order-1 h-48 [@media(min-width:361px)]:order-2 [@media(min-width:361px)]:h-full"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=70"
+                  alt="Chicken Teriyaki Bowl"
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-l from-black/0 via-black/0 to-black/30"
+                ></div>
+              </div>
+            </div>
+          </article>
+
+          <article
+            data-item
+            data-type="bowls"
+            data-tags="vegan fresh light"
+            data-name="Vegan Buddha Bowl"
+            data-desc="A bright, plant-based bowl with mixed greens, grains, and roasted veggies. Clean, filling, and easy on the stomach."
+            data-ingredients="Quinoa, chickpeas, avocado, cucumber, carrot, red cabbage, mixed greens, lemon-tahini"
+            data-allergens="Sesame (tahini)"
+            data-time="8–12 min"
+            data-price="$125"
+            data-img="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&w=1200&q=70"
+            class="enter-card c3 overflow-hidden rounded-3xl border border-white/10 bg-[var(--graphite)] ash-glow min-h-[248px]"
+          >
+            <div
+              class="grid grid-cols-1 min-h-[248px] [@media(min-width:361px)]:grid-cols-[60%_40%]"
+            >
+              <div
+                class="p-4 flex flex-col order-2 [@media(min-width:361px)]:order-1"
+              >
+                <div class="flex items-baseline justify-between gap-3">
+                  <h4
+                    class="min-w-0 truncate text-lg font-semibold leading-tight"
+                  >
+                    Vegan Buddha Bowl
+                  </h4>
+                  <p
+                    class="shrink-0 text-xl font-semibold tracking-tight text-[var(--ash)]"
+                  >
+                    $125
+                  </p>
+                </div>
+
+                <p
+                  class="mt-1 inline-flex items-center gap-2 text-sm text-white/70"
+                >
+                  <i data-lucide="clock-3" class="h-4 w-4 text-white/60"></i
+                  >8–12 min
+                </p>
+
+                <div class="flex-1"></div>
+
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i data-lucide="leaf" class="h-4 w-4 text-emerald-300"></i
+                    >Vegan
+                  </span>
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i
+                      data-lucide="sparkles"
+                      class="h-4 w-4 text-violet-300"
+                    ></i
+                    >Fresh
+                  </span>
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i data-lucide="feather" class="h-4 w-4 text-sky-300"></i
+                    >Light
+                  </span>
+                </div>
+              </div>
+
+              <div
+                class="relative w-full order-1 h-48 [@media(min-width:361px)]:order-2 [@media(min-width:361px)]:h-full"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&w=900&q=70"
+                  alt="Vegan Buddha Bowl"
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-l from-black/0 via-black/0 to-black/30"
+                ></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- SOUPS -->
+          <article
+            data-item
+            data-type="soups"
+            data-tags="spicy popular asian"
+            data-name="Spicy Ramen"
+            data-desc="Rich broth ramen with noodles, spicy kick, and classic toppings. Comfort food with attitude."
+            data-ingredients="Noodles (wheat), broth, chili oil, scallions, egg, mushrooms, soy sauce"
+            data-allergens="Wheat (gluten), Soy, Egg"
+            data-time="14–22 min"
+            data-price="$175"
+            data-img="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=1200&q=70"
+            class="enter-card c4 overflow-hidden rounded-3xl border border-white/10 bg-[var(--graphite)] ash-glow min-h-[248px]"
+          >
+            <div
+              class="grid grid-cols-1 min-h-[248px] [@media(min-width:361px)]:grid-cols-[60%_40%]"
+            >
+              <div
+                class="p-4 flex flex-col order-2 [@media(min-width:361px)]:order-1"
+              >
+                <div class="flex items-baseline justify-between gap-3">
+                  <h4
+                    class="min-w-0 truncate text-lg font-semibold leading-tight"
+                  >
+                    Spicy Ramen
+                  </h4>
+                  <p
+                    class="shrink-0 text-xl font-semibold tracking-tight text-[var(--ash)]"
+                  >
+                    $175
+                  </p>
+                </div>
+
+                <p
+                  class="mt-1 inline-flex items-center gap-2 text-sm text-white/70"
+                >
+                  <i data-lucide="clock-3" class="h-4 w-4 text-white/60"></i
+                  >14–22 min
+                </p>
+
+                <div class="flex-1"></div>
+
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i data-lucide="flame" class="h-4 w-4 text-rose-300"></i
+                    >Spicy
+                  </span>
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i data-lucide="star" class="h-4 w-4 text-amber-300"></i
+                    >Popular
+                  </span>
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i data-lucide="utensils" class="h-4 w-4 text-sky-300"></i
+                    >Asian
+                  </span>
+                </div>
+              </div>
+
+              <div
+                class="relative w-full order-1 h-48 [@media(min-width:361px)]:order-2 [@media(min-width:361px)]:h-full"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=900&q=70"
+                  alt="Spicy Ramen"
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-l from-black/0 via-black/0 to-black/30"
+                ></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- DRINKS -->
+          <article
+            data-item
+            data-type="drinks"
+            data-tags="cold fresh bestseller"
+            data-name="Iced Lemonade"
+            data-desc="Freshly squeezed lemonade served over ice. Bright, crisp, and perfect for hot days."
+            data-ingredients="Lemon juice, water, sugar, ice"
+            data-allergens="None"
+            data-time="2–4 min"
+            data-price="$55"
+            data-img="https://images.unsplash.com/photo-1528823872057-9c018a7a7553?auto=format&fit=crop&w=1200&q=70"
+            class="enter-card c5 overflow-hidden rounded-3xl border border-white/10 bg-[var(--graphite)] ash-glow min-h-[248px]"
+          >
+            <div
+              class="grid grid-cols-1 min-h-[248px] [@media(min-width:361px)]:grid-cols-[60%_40%]"
+            >
+              <div
+                class="p-4 flex flex-col order-2 [@media(min-width:361px)]:order-1"
+              >
+                <div class="flex items-baseline justify-between gap-3">
+                  <h4
+                    class="min-w-0 truncate text-lg font-semibold leading-tight"
+                  >
+                    Iced Lemonade
+                  </h4>
+                  <p
+                    class="shrink-0 text-xl font-semibold tracking-tight text-[var(--ash)]"
+                  >
+                    $55
+                  </p>
+                </div>
+
+                <p
+                  class="mt-1 inline-flex items-center gap-2 text-sm text-white/70"
+                >
+                  <i data-lucide="clock-3" class="h-4 w-4 text-white/60"></i>2–4
+                  min
+                </p>
+
+                <div class="flex-1"></div>
+
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i data-lucide="snowflake" class="h-4 w-4 text-sky-300"></i
+                    >Cold
+                  </span>
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i
+                      data-lucide="sparkles"
+                      class="h-4 w-4 text-violet-300"
+                    ></i
+                    >Fresh
+                  </span>
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i
+                      data-lucide="trending-up"
+                      class="h-4 w-4 text-emerald-300"
+                    ></i
+                    >Bestseller
+                  </span>
+                </div>
+              </div>
+
+              <div
+                class="relative w-full order-1 h-48 [@media(min-width:361px)]:order-2 [@media(min-width:361px)]:h-full"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1528823872057-9c018a7a7553?auto=format&fit=crop&w=900&q=70"
+                  alt="Iced Lemonade"
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-l from-black/0 via-black/0 to-black/30"
+                ></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- DESSERTS -->
+          <article
+            data-item
+            data-type="desserts"
+            data-tags="dessert sweet cold"
+            data-name="Chocolate Ice Cream"
+            data-desc="Creamy chocolate ice cream with deep cocoa flavor. Simple, cold, and dangerously addictive."
+            data-ingredients="Milk, cream, sugar, cocoa"
+            data-allergens="Milk (dairy)"
+            data-time="3–6 min"
+            data-price="$85"
+            data-img="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=1200&q=70"
+            class="enter-card c6 overflow-hidden rounded-3xl border border-white/10 bg-[var(--graphite)] ash-glow min-h-[248px]"
+          >
+            <div
+              class="grid grid-cols-1 min-h-[248px] [@media(min-width:361px)]:grid-cols-[60%_40%]"
+            >
+              <div
+                class="p-4 flex flex-col order-2 [@media(min-width:361px)]:order-1"
+              >
+                <div class="flex items-baseline justify-between gap-3">
+                  <h4
+                    class="min-w-0 truncate text-lg font-semibold leading-tight"
+                  >
+                    Chocolate Ice Cream
+                  </h4>
+                  <p
+                    class="shrink-0 text-xl font-semibold tracking-tight text-[var(--ash)]"
+                  >
+                    $85
+                  </p>
+                </div>
+
+                <p
+                  class="mt-1 inline-flex items-center gap-2 text-sm text-white/70"
+                >
+                  <i data-lucide="clock-3" class="h-4 w-4 text-white/60"></i>3–6
+                  min
+                </p>
+
+                <div class="flex-1"></div>
+
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i data-lucide="cookie" class="h-4 w-4 text-amber-300"></i
+                    >Dessert
+                  </span>
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i data-lucide="candy" class="h-4 w-4 text-rose-300"></i
+                    >Sweet
+                  </span>
+                  <span
+                    class="chip inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs"
+                  >
+                    <i data-lucide="snowflake" class="h-4 w-4 text-sky-300"></i
+                    >Cold
+                  </span>
+                </div>
+              </div>
+
+              <div
+                class="relative w-full order-1 h-48 [@media(min-width:361px)]:order-2 [@media(min-width:361px)]:h-full"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=900&q=70"
+                  alt="Chocolate Ice Cream"
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-l from-black/0 via-black/0 to-black/30"
+                ></div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <footer
+          class="mt-12 border-t border-white/10 pt-4 text-center text-xs text-[var(--dim)]"
+        >
+          <span class="font-medium text-[var(--white)]">El Tazón de Oro</span>
+          <span class="opacity-70">· QR Menu</span>
+        </footer>
+      </main>
+    </div>
+
+    <!-- Overlay -->
+    <div
+      id="dishOverlay"
+      class="fixed inset-0 z-[60] hidden bg-black/55 backdrop-blur-[2px]"
+    ></div>
+
+    <!-- Bottom Sheet -->
+    <section
+      id="dishSheet"
+      class="fixed inset-x-0 bottom-0 z-[70] hidden max-w-[520px] mx-auto h-[80vh]"
+      aria-hidden="true"
+    >
+      <div
+        class="h-full rounded-t-3xl border border-white/10 bg-[var(--onyx)] soft-shadow overflow-y-auto flex flex-col"
+      >
+        <div class="relative h-auto">
+          <!-- Back button -->
+          <button
+            id="dishCloseBtn"
+            type="button"
+            class="fixed left-4 top-4 h-10 w-10 rounded-xl border border-white/10 bg-black/40 grid place-items-center active:scale-[0.98] backdrop-blur z-40"
+            aria-label="Close"
+          >
+            <i data-lucide="arrow-left" class="h-5 w-5 text-white"></i>
+          </button>
+
+          <!-- Top image -->
+          <div class="relative h-72 shrink-0 sheet-hero">
+            <img
+              id="dishImg"
+              src=""
+              alt=""
+              class="h-full w-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/60"
+            ></div>
+
+            <!-- Name + price overlay -->
+            <div class="absolute left-4 right-4 bottom-4">
+              <div class="flex items-end justify-between gap-3">
+                <div class="min-w-0">
+                  <h3 id="dishName" class="truncate text-xl font-semibold"></h3>
+                  <p
+                    id="dishTime"
+                    class="mt-1 inline-flex items-center gap-2 text-sm text-white/80"
+                  >
+                    <i data-lucide="clock-3" class="h-4 w-4 text-white/70"></i>
+                    <span></span>
+                  </p>
+                </div>
+
+                <p
+                  id="dishPrice"
+                  class="shrink-0 text-2xl font-semibold text-[var(--ash)]"
+                ></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="p-4">
+            <p id="dishDesc" class="text-sm text-white/80 leading-relaxed"></p>
+
+            <!-- Tags -->
+            <div id="dishTags" class="mt-4 flex flex-wrap gap-2"></div>
+
+            <!-- Ingredients -->
+            <div class="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div class="flex items-center gap-2 text-sm font-semibold">
+                <i data-lucide="list" class="h-4 w-4 text-white/70"></i>
+                Ingredients
+              </div>
+              <p id="dishIngredients" class="mt-2 text-sm text-white/80"></p>
+            </div>
+
+            <!-- Allergens -->
+            <div class="mt-3 rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div class="flex items-center gap-2 text-sm font-semibold">
+                <i
+                  data-lucide="alert-triangle"
+                  class="h-4 w-4 text-amber-300"
+                ></i>
+                Allergens
+              </div>
+              <p id="dishAllergens" class="mt-2 text-sm text-white/80"></p>
+            </div>
+
+            <!-- Spacer for bottom safe area -->
+            <div class="h-6"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

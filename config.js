@@ -1,0 +1,260 @@
+window.MENU_CONFIG = {
+  // ====== SITE META (editable) ======
+  meta: {
+    title: "El Tazón de Oro - QR Menu",
+    description: "Bowls, ramen y postres. Pide rápido desde tu teléfono.",
+    themeColor: "#0f0f0f", // color barra navegador (mobile)
+    ogImage:
+      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=70",
+  },
+
+  // ====== BRAND/UI TEXT (editable) ======
+  ui: {
+    headerKicker: "QR MENU",
+    restaurantName: "El Tazón de Oro",
+    recommendedTitle: "Recommended",
+    menuTitle: "Menu",
+  },
+
+  // ====== COLORS (editable) ======
+  colors: {
+    dark: {
+      ash: "#bcabae",
+      onyx: "#0f0f0f",
+      graphite: "#2d2e2e",
+      dim: "#716969",
+      white: "#fbfbfb",
+      filterBlue: "#38bdf8",
+      pageBg: "#0f0f0f",
+      pageText: "#fbfbfb",
+      headerBg: "rgba(15, 15, 15, 0.9)",
+      border: "rgba(255,255,255,0.10)",
+      chipBg: "rgba(255,255,255,0.05)",
+      chipBorder: "rgba(255,255,255,0.10)",
+      mutedText: "rgba(255,255,255,0.70)",
+    },
+    light: {
+      ash: "#2d2e2e",
+      onyx: "#fbfbfb",
+      graphite: "#ffffff",
+      dim: "#64748b",
+      white: "#0f172a",
+      filterBlue: "#38bdf8",
+      pageBg: "#f6f7fb",
+      pageText: "#0f172a",
+      headerBg: "rgba(246, 247, 251, 0.92)",
+      border: "rgba(15,23,42,0.12)",
+      chipBg: "rgba(15,23,42,0.04)",
+      chipBorder: "rgba(15,23,42,0.10)",
+      mutedText: "rgba(15,23,42,0.70)",
+    },
+  },
+
+  // ====== RECOMMENDED RULE ======
+  recommendedTag: "recommended",
+
+  // ====== TAG CATALOG ======
+  tags: {
+    recommended: { label: "Recommended", icon: "star" },
+    popular: { label: "Popular", icon: "star" },
+    spicy: { label: "Spicy", icon: "flame" },
+    glutenfree: { label: "Gluten-free", icon: "wheat-off" },
+    vegan: { label: "Vegan", icon: "leaf" },
+    fresh: { label: "Fresh", icon: "sparkles" },
+    light: { label: "Light", icon: "feather" },
+    chef: { label: "Chef", icon: "chef-hat" },
+    highprotein: { label: "High-protein", icon: "dumbbell" },
+    cold: { label: "Cold", icon: "snowflake" },
+    dessert: { label: "Dessert", icon: "cookie" },
+    signature: { label: "Signature", icon: "badge-check" },
+    bestseller: { label: "Bestseller", icon: "trending-up" },
+    asian: { label: "Asian", icon: "utensils" },
+  },
+
+  // Platillos (TODO sale de aquí)
+  dishes: [
+    // ===== BOWLS =====
+    {
+      id: "beef-bowl",
+      type: "bowls",
+      name: "Beef Bowl",
+      price: "$145",
+      time: "12–18 min",
+      img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=70",
+      desc: "Sautéed beef cooked to perfection, served over warm jasmine rice with fresh vegetables and a savory house sauce.",
+      ingredients:
+        "Marinated beef, jasmine rice, avocado, cucumber, carrot, scallions, sesame seeds, soy-based house sauce",
+      allergens: "Soy, Sesame",
+      tags: ["recommended", "popular", "spicy", "signature"],
+    },
+    {
+      id: "chicken-teriyaki",
+      type: "bowls",
+      name: "Chicken Teriyaki Bowl",
+      price: "$139",
+      time: "10–16 min",
+      img: "https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=1200&q=70",
+      desc: "Grilled chicken glazed with house-made teriyaki sauce, served with rice and crisp vegetables.",
+      ingredients:
+        "Grilled chicken, white rice, teriyaki sauce, carrot, cucumber, scallions",
+      allergens: "Soy, Gluten",
+      tags: ["popular", "glutenfree", "highprotein"],
+    },
+    {
+      id: "vegan-buddha",
+      type: "bowls",
+      name: "Vegan Buddha Bowl",
+      price: "$125",
+      time: "8–12 min",
+      img: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&w=1200&q=70",
+      desc: "A balanced plant-based bowl with grains, legumes, fresh greens, and creamy tahini dressing.",
+      ingredients:
+        "Quinoa, roasted chickpeas, spinach, carrot, cucumber, red cabbage, tahini, lemon",
+      allergens: "Sesame",
+      tags: ["recommended", "vegan", "fresh", "light"],
+    },
+    {
+      id: "salmon-poke",
+      type: "bowls",
+      name: "Salmon Poke Bowl",
+      price: "$165",
+      time: "10–14 min",
+      img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=70",
+      desc: "Fresh salmon cubes lightly marinated, served with rice, avocado, and poke-style sauce.",
+      ingredients:
+        "Fresh salmon, white rice, avocado, cucumber, soy sauce, sesame oil, sesame seeds",
+      allergens: "Fish, Soy, Sesame",
+      tags: ["fresh", "chef", "glutenfree"],
+    },
+    {
+      id: "spicy-tuna",
+      type: "bowls",
+      name: "Spicy Tuna Bowl",
+      price: "$159",
+      time: "10–15 min",
+      img: "https://images.getrecipekit.com/20230301155537-spicy-20tuna-20poke-20bowls-20main-20image.jpg?aspect_ratio=4:3&quality=90&",
+      desc: "Marinated tuna with a bold spicy kick, served over warm rice and fresh vegetables.",
+      ingredients:
+        "Fresh tuna, white rice, spicy chili sauce, cucumber, scallions, sesame seeds",
+      allergens: "Fish, Egg, Sesame",
+      tags: ["spicy", "popular"],
+    },
+
+    // ===== SOUPS =====
+    {
+      id: "spicy-ramen",
+      type: "soups",
+      name: "Spicy Ramen",
+      price: "$175",
+      time: "14–22 min",
+      img: "https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=1200&q=70",
+      desc: "Rich, slow-simmered broth with wheat noodles, chili oil, and classic ramen toppings.",
+      ingredients:
+        "Chicken broth, wheat noodles, chili oil, boiled egg, scallions, nori",
+      allergens: "Wheat, Egg, Soy",
+      tags: ["recommended", "spicy", "asian"],
+    },
+    {
+      id: "miso-soup",
+      type: "soups",
+      name: "Miso Soup",
+      price: "$75",
+      time: "5–8 min",
+      img: "https://hikarimiso.com/wp-content/uploads/2024/12/vegan-miso-soup.jpg",
+      desc: "Light and comforting Japanese soup with tofu and seaweed.",
+      ingredients:
+        "Miso paste, tofu, wakame seaweed, scallions, vegetable broth",
+      allergens: "Soy",
+      tags: ["vegan", "light"],
+    },
+    {
+      id: "chicken-noodle",
+      type: "soups",
+      name: "Chicken Noodle Soup",
+      price: "$120",
+      time: "12–18 min",
+      img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=70",
+      desc: "Classic comfort soup with tender chicken, noodles, and vegetables.",
+      ingredients:
+        "Shredded chicken, wheat noodles, carrot, celery, onion, chicken broth",
+      allergens: "Wheat",
+      tags: ["popular", "chef"],
+    },
+
+    // ===== DRINKS =====
+    {
+      id: "iced-lemonade",
+      type: "drinks",
+      name: "Iced Lemonade",
+      price: "$55",
+      time: "2–4 min",
+      img: "https://www.vegetarianventures.com/wp-content/uploads/2019/07/PeachLemonadeBlog-16-of-18.jpg",
+      desc: "Freshly squeezed lemonade prepared daily and served over ice.",
+      ingredients: "Fresh lemon juice, filtered water, sugar, ice",
+      allergens: "None",
+      tags: ["cold", "fresh", "bestseller"],
+    },
+    {
+      id: "matcha-latte",
+      type: "drinks",
+      name: "Matcha Latte",
+      price: "$85",
+      time: "4–6 min",
+      img: "https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/bc3ba52136b76dbfd0c0b44c8e0eb3a2/Derivates/e7720c84bd9569074ac48e61a94e75cbfa90aabf.jpg",
+      desc: "Creamy matcha latte made with finely ground green tea and steamed milk.",
+      ingredients: "Matcha green tea powder, milk, sugar",
+      allergens: "Milk",
+      tags: ["chef", "popular"],
+    },
+    {
+      id: "cold-brew",
+      type: "drinks",
+      name: "Cold Brew Coffee",
+      price: "$65",
+      time: "2–3 min",
+      img: "https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2Farchive%2F9eada0d203bfb580d801b478edd553465c7afb52",
+      desc: "Slow-steeped cold brew coffee with a smooth and low-acid profile.",
+      ingredients: "Ground coffee, water, ice",
+      allergens: "None",
+      tags: ["cold", "light"],
+    },
+
+    // ===== DESSERTS =====
+    {
+      id: "chocolate-ice-cream",
+      type: "desserts",
+      name: "Chocolate Ice Cream",
+      price: "$85",
+      time: "3–6 min",
+      img: "https://www.cadburydessertscorner.com/hs-fs/hubfs/dc-website-2022/articles/bournville-dark-chocolate-ice-cream-why-not/bournville-dark-chocolate-ice-cream-why-not-feature.webp?width=1920&height=464&name=bournville-dark-chocolate-ice-cream-why-not-feature.webp",
+      desc: "Rich and creamy chocolate ice cream with deep cocoa flavor.",
+      ingredients: "Milk, cream, cocoa powder, sugar",
+      allergens: "Milk",
+      tags: ["dessert", "sweet", "cold"],
+    },
+    {
+      id: "cheesecake",
+      type: "desserts",
+      name: "Classic Cheesecake",
+      price: "$110",
+      time: "5–8 min",
+      img: "https://www.allrecipes.com/thmb/IsIVofRRaO-P0Iv_3sUaSNkwWE8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Easy-Classic-Cheesecake2-2814f4f9999943688d54f103a13919b8.jpg",
+      desc: "Traditional baked cheesecake with a smooth filling and biscuit crust.",
+      ingredients: "Cream cheese, eggs, sugar, wheat flour, butter",
+      allergens: "Milk, Egg, Wheat",
+      tags: ["popular", "dessert"],
+    },
+    {
+      id: "fruit-bowl",
+      type: "desserts",
+      name: "Fresh Fruit Bowl",
+      price: "$75",
+      time: "4–6 min",
+      img: "https://joyfoodsunshine.com/wp-content/uploads/2022/05/summer-fruit-salad-recipe-1.jpg",
+      desc: "Selection of fresh seasonal fruits, served chilled.",
+      ingredients: "Mixed seasonal fresh fruits",
+      allergens: "None",
+      tags: ["vegan", "fresh", "light"],
+    },
+  ],
+};
